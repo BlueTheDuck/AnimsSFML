@@ -10,11 +10,11 @@ SFML: https://www.sfml-dev.org/
 SFML deps: https://www.sfml-dev.org/tutorials/2.4/start-vc.php
 
 ### FAQ
-Q: Does it work?
+Q: Does it work?<br>
 A: No
 
-Q: Why?
+Q: Why?<br>
 A: Visual Studio hates me (int a = 1; <-- Compile error)
 
-Q: Will it work?
+Q: Will it work?<br>
 A: Probably no
