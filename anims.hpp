@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef ANIMS
+#define ANIMS
+
 #include <string>
 
 #ifdef _DEBUG 
@@ -33,20 +36,9 @@ class KeyFrames {
 			totalFrames = 27;
 			frames = new frame[totalFrames];
 		}
-		void set( int dir, int type, float args[2]/*std::string args*/ ) {
-			std::cout << "Setting frame " << dir << std::endl;
-			frames[dir].args = args;
-			frames[dir].type = type;
-		}void set( int dir, int type, float arg/*std::string args*/ ) {
-			std::cout << "Setting frame " << dir << std::endl;
-			frames[dir].arg = arg;
-			frames[dir].type = type;
-		}
-		frame* get( int dir ) {
-			if( dir < totalFrames && dir >= 0 ) {
-				return &frames[dir];
-			}
-		}
+		void set( int dir, int type, float args[2] );
+		void set( int dir, int type, float arg/*std::string args*/ );
+		frame* get( int dir );
 		/*void set(int dir,char act,char arg) {
 			actions[dir] = act;
 			args[dir] = arg;
@@ -86,30 +78,8 @@ class Animation {
 			iniPos = { ( *object ).getPosition().x, ( *object ).getPosition().y };
 			iniRot = ( *object ).getRotation();
 		}
-		void Animation::Move( sf::Vector2<int> to, bool absolute ) {
-			//( *object ).move( to );
-			iniPos = { ( *object ).getPosition().x, ( *object ).getPosition().y };
-			//sf::Vector2<int> initial = {(int)( *object ).getPosition().x, (int)( *object ).getPosition().y};
-			sf::Vector2<float> steps;
-			steps.x = to.x / frameRate;
-			steps.y = to.y / frameRate;
-			for( int i = 0; i < frames; i++ ) {
-				float* frm = new float[2];
-				frm[0] = steps.x;
-				frm[1] = steps.y;
-				if( absolute ) {
-					frm[0] *= i;
-					frm[1] *= i;
-					frm[0] += iniPos.x;
-					frm[1] += iniPos.y;
-					kFrames.set( i, POS + ABS, frm );
-				} else {
-					kFrames.set( i, POS, frm );
-				}
-			}
-			cout << steps.x;
-		}
-		void Animation::Rotate( int angle, bool absolute ) {//Shorthand
+		void Animation::Move( sf::Vector2<int> toPos, bool absolute, int from = 0, int to = 27 );
+		/*void Animation::Rotate( int angle, bool absolute ) {//Shorthand
 			iniRot = ( *object ).getRotation();
 			float step;
 			step = (float)angle / frameRate;
@@ -124,7 +94,7 @@ class Animation {
 				}
 			}
 			//this::Rotate( angle, absolute, 0, frames);
-		}
+		}*/
 		void Animation::Rotate( int angle, bool absolute, int from, int to ) {
 			//if( from > to || from >= frames || to >= frames ) return;//If arguments are invalid, exit
 
@@ -184,3 +154,5 @@ class Animation {
 		//void Animation::animationEnd();
 		//void Animation::Animate( int animType, )
 };
+
+#endif // !ANIMS
