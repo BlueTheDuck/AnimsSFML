@@ -6,7 +6,7 @@ This class is intended to provide simple animations to SFML objects
 Guess it... yes, SFML, more specificaly the Graphics.hpp file. Graphics has other deps (Check them down in the Links section, I'm to lazy to write'em)
 
 ### Links
-SFML: https://www.sfml-dev.org/
+SFML: https://www.sfml-dev.org/<br>
 SFML deps: https://www.sfml-dev.org/tutorials/2.4/start-vc.php
 
 ### FAQ
