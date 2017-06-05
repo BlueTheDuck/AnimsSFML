@@ -16,7 +16,7 @@
 #define POS 2//Position
 #define ABS 16//Absolute modifier
 
-namespace AnimsSFML {
+namespace as {
 	struct frame {
 		int type = 0;
 		float* args = new float[2];//For POS
@@ -94,8 +94,8 @@ namespace AnimsSFML {
 }
 
 
-template <typename T> unsigned int AnimsSFML::Animation<T>::initialized = 0;
-template <typename T> std::deque<void*> AnimsSFML::Animation<T>::Animations = std::deque<void*>(1);
+template <typename T> unsigned int as::Animation<T>::initialized = 0;
+template <typename T> std::deque<void*> as::Animation<T>::Animations = std::deque<void*>(1);
 
 
 #endif // !ANIMS

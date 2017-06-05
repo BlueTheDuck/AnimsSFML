@@ -2,7 +2,7 @@
 #include "anims.hpp"
 #endif // !ANIMS
 
-void AnimsSFML::KeyFrames::set( int dir, int type, float args[2] ) {
+void as::KeyFrames::set( int dir, int type, float args[2] ) {
 	if( dir >= totalFrames || dir < 0 ) {
 		throw std::invalid_argument( "frame* KeyFrames::get( int dir )\n'dir' has to be between 0 and " + totalFrames );
 	}
@@ -12,7 +12,7 @@ void AnimsSFML::KeyFrames::set( int dir, int type, float args[2] ) {
 	frames[dir].args = args;
 	frames[dir].type = type;
 }
-void AnimsSFML::KeyFrames::set( int dir, int type, float arg ) {
+void as::KeyFrames::set( int dir, int type, float arg ) {
 	if( dir >= totalFrames || dir < 0 ) {
 		throw std::invalid_argument( "frame* KeyFrames::get( int dir )\n'dir' has to be between 0 and " + totalFrames );
 	}
@@ -22,7 +22,7 @@ void AnimsSFML::KeyFrames::set( int dir, int type, float arg ) {
 	frames[dir].arg = arg;
 	frames[dir].type = type;
 }
-AnimsSFML::frame* AnimsSFML::KeyFrames::get( int dir ) {
+as::frame* as::KeyFrames::get( int dir ) {
 	if( dir >= totalFrames || dir < 0 ) {
 		throw std::invalid_argument("frame* KeyFrames::get( int dir )\n'dir' has to be between 0 and "+totalFrames);
 	}
@@ -30,7 +30,7 @@ AnimsSFML::frame* AnimsSFML::KeyFrames::get( int dir ) {
 }
 
 template <typename T>
-void AnimsSFML::Animation<T>::Move( sf::Vector2<int> toPos, bool absolute, unsigned int from = 0, unsigned int to = 27 ) {
+void as::Animation<T>::Move( sf::Vector2<int> toPos, bool absolute, unsigned int from = 0, unsigned int to = 27 ) {
 
 	iniPos = { ( *object ).getPosition().x, ( *object ).getPosition().y };
 	int framesRange = to - from;
@@ -52,10 +52,10 @@ void AnimsSFML::Animation<T>::Move( sf::Vector2<int> toPos, bool absolute, unsig
 			kFrames.set( i, POS, frm );
 		}
 	}
-	cout << steps.x;
+	std::cout << steps.x;
 }
 template <typename T>
-void AnimsSFML::Animation<T>::Rotate( int angle, bool absolute, int from, int to ) {
+void as::Animation<T>::Rotate( int angle, bool absolute, int from, int to ) {
 	//if( from > to || from >= frames || to >= frames ) return;//If arguments are invalid, exit
 	int framesRange = to - from;
 	iniRot = ( *object ).getRotation();
@@ -73,22 +73,22 @@ void AnimsSFML::Animation<T>::Rotate( int angle, bool absolute, int from, int to
 	}
 }
 template <typename T>
-void AnimsSFML::Animation<T>::ProcessFrame( int frm ) {
+void as::Animation<T>::ProcessFrame( int frm ) {
 	frame* f = kFrames.get( frm );
 	#ifdef _DEBUG
-	/*std::cout << "\nProcessing frame " << frm << std::endl <<
+	std::cout << "\nProcessing frame " << frm << std::endl <<
 		" Type: " << ( *f ).type << std::endl;
 	if( ( *f ).type&POS )
 		std::cout << " Args: " << ( *f ).args[0] << "&" << ( *f ).args[1];
 	else
 		std::cout << " Arg: " << ( *f ).arg;
-		*/
+	
 	#endif // _DEBUG
 	if( ( *f ).type&POS ) {
 		if( ( *f ).type&ABS ) {//Absolute duh...
 			( *object ).setPosition( ( *f ).args[0], ( *f ).args[1] );
 		} else {//Relative
-			( *object ).setPosition( iniPos.x + ( *f ).args[0], iniPos.y + ( *f ).args[1] );
+			( *object ).setPosition( ( *object ).getPosition().x + ( *f ).args[0], ( *object ).getPosition().y + ( *f ).args[1] );
 		}
 	} else if( ( *f ).type&ROT ) {
 		if( ( *f ).type&ABS ) {
