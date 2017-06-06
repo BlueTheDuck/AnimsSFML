@@ -75,14 +75,15 @@ void as::Animation<T>::Rotate( int angle, bool absolute, int from, int to ) {
 template <typename T>
 void as::Animation<T>::ProcessFrame( int frm ) {
 	frame* f = kFrames.get( frm );
-	#ifdef _DEBUG
+	#ifdef _DEBUG 
+	#ifdef AS_SHOWFRAMEINFO
 	std::cout << "\nProcessing frame " << frm << std::endl <<
 		" Type: " << ( *f ).type << std::endl;
 	if( ( *f ).type&POS )
 		std::cout << " Args: " << ( *f ).args[0] << "&" << ( *f ).args[1];
 	else
 		std::cout << " Arg: " << ( *f ).arg;
-	
+	#endif
 	#endif // _DEBUG
 	if( ( *f ).type&POS ) {
 		if( ( *f ).type&ABS ) {//Absolute duh...

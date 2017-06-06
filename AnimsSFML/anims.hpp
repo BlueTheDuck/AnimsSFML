@@ -70,7 +70,7 @@ namespace as {
 			}
 			initialized++;
 			#ifdef _DEBUG
-			std::cout << "Initialized instance with ID " << ID << " at the addrs " << reinterpret_cast<int>( this ) << std::endl;
+			std::cout << "Initialized instance with ID " << ID << " at the addrs " << reinterpret_cast<unsigned int>( this ) << std::endl;
 			#endif // _DEBUG
 
 		}
