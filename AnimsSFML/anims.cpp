@@ -98,6 +98,15 @@ void as::Animation<T>::ProcessFrame( int frm ) {
 			( *object ).setRotation( ( *f ).arg + ( *object ).getRotation() );
 		}
 	}
-	actFrame = actFrame == ( frames - 1 )?0:actFrame + 1;
+	if( actFrame == frames - 1 ) {
+		actFrame = 0;
+		( *this ).onAnimationEnd(this);
+		/*if( (*this).onAnimationFinished.ready ) {
+			(*this).onAnimationFinished(reinterpret_cast<int>(this));
+		}*/
+	} else {
+		actFrame++;
+	}
+	//actFrame = actFrame == ( frames - 1 )?0:actFrame + 1;
 }
 

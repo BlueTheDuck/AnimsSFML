@@ -11,6 +11,7 @@
 #endif
 
 #include <SFML\Graphics.hpp>
+#include <stdarg.h>
 
 #define ROT 1//Rotation
 #define POS 2//Position
@@ -22,6 +23,25 @@ namespace as {
 		float* args = new float[2];//For POS
 		float arg = 0;//For ROT
 	};
+
+	/*template<typename T>
+	struct eventHandler {
+		typedef bool( *eventHandlerPtr )( int );
+		eventHandlerPtr eventFunction;
+		typename as::Animation <T> * pointer;
+		bool ready = false;
+		void operator()( int ptr ) {
+			if( !ready ) {
+				throw std::logic_error( "This event handler is not ready. Maybe it doesn't have a pointer to a function?" );
+				return;
+			}
+			eventFunction( ptr );
+		}
+		void operator=( eventHandlerPtr ptr ) {
+			eventFunction = ptr;
+			ready = true;
+		}
+	};*/
 
 	class KeyFrames {
 	public:
@@ -44,12 +64,30 @@ namespace as {
 
 	template <typename T>
 	class Animation {
+	private:
 		T object;
 		sf::Vector2<float> iniPos;
 		int iniRot;
 		static unsigned int initialized;//Objects initialized
+
+		template<typename T>
+		struct eventHandler {
+			typedef bool( *eventHandlerPtr )( as::Animation<T>* );
+			eventHandlerPtr function;
+			as::Animation<T> * obj;
+			bool operator=( eventHandlerPtr ptr) {
+				function = ptr;
+				return true;
+			}
+			bool operator()( as::Animation<T> *const ptr ) {
+				function( ptr );
+				return true;
+			}
+		};
+
 	public:
-		//static Animation<T> * Animations;
+		eventHandler<T> onAnimationEnd;
+		//eventHandler<T> onAnimationFinished;
 		static std::deque<void*> Animations;
 		unsigned int ID;//ID of the new object
 		int actFrame = 0, frames = 1;
@@ -86,11 +124,8 @@ namespace as {
 			std::cout << "\nActual frame: " << actFrame << "/" << frames << " at " << frameRate << "fps\n";
 		}
 		#endif // _DEBUG
+
 	};
-
-	/*void frameControllerThread() {
-
-	}*/
 }
 
 
