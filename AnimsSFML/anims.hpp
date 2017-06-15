@@ -24,6 +24,7 @@ namespace as {
 		float arg = 0;//For ROT
 	};
 
+
 	/*template<typename T>
 	struct eventHandler {
 		typedef bool( *eventHandlerPtr )( int );
@@ -110,7 +111,7 @@ namespace as {
 			#ifdef _DEBUG
 			std::cout << "Initialized instance with ID " << ID << " at the addrs " << reinterpret_cast<unsigned int>( this ) << std::endl;
 			#endif // _DEBUG
-
+			onAnimationEnd = &as::functionPlaceholder;
 		}
 		void Animation::Move( sf::Vector2<int> toPos, bool absolute, unsigned int from = 0, unsigned int to = 27 );
 		void Animation::Rotate( int angle, bool absolute, int from, int to );
@@ -126,6 +127,8 @@ namespace as {
 		#endif // _DEBUG
 
 	};
+
+	template <typename T> bool functionPlaceholder( as::Animation<T> *const ptr ) { return true; }
 }
 
 
